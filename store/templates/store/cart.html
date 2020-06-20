@@ -1,0 +1,50 @@
+{% extends 'store/base.html' %}
+
+{% block main %}
+    <div class="cart-container">
+        <div class="cart">
+            <div class="cart-title">
+                Cart Items
+            </div>
+            <div class="cart-option-container">
+                <div class="cart-total-display">
+                    <div class="cart-item-count">
+                        Total items: 
+                        <span id="total-item">2</span>
+                    </div>
+                    <div class="cart-amount">
+                        Total amount: &#8377;
+                        <span id="total-price">5000</span>
+                    </div>
+                </div>
+                <div class="cart-button">
+                    <a href="{% url 'checkout' %}">Checkout</a>
+                </div>
+            </div>
+            <div class="individual-cart-item">
+                <div class="cart-item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
+                <div class="cart-item-name">Shoes</div>
+                <div class="cart-item-price">&#8377;2500</div>
+                <div class="cart-item-quantity">
+                    <span id="item-quantity">1</span>
+                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-minus"></i>
+                </div>
+                <i class="fas fa-trash"></i>
+            </div>
+            <div class="individual-cart-item">
+                <div class="cart-item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
+                <div class="cart-item-name">Shoes</div>
+                <div class="cart-item-price">&#8377;2500</div>
+                <div class="cart-item-quantity">
+                    <span id="item-quantity">1</span>
+                    <div>
+                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-minus"></i>
+                    </div>
+                </div>
+                <i class="fas fa-trash"></i>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

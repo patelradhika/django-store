@@ -1,0 +1,18 @@
+{% extends 'store/base.html' %}
+
+{% block main %}
+    <div class="register-container">
+        <div class="register-title">
+            Register
+        </div>
+        <form action="">
+            <div class="register-form">
+                <input type="text" class="register-name" name="register-name" placeholder="Username" required>
+                <input type="email" class="register-email" name="register-email" placeholder="Email ID" required>
+                <input type="password" class="register-password" name="register-password" placeholder="Password" required>
+                <input type="password" class="register-password" name="register-check-pwd" placeholder="Re-enter Password" required>
+                <button type="submit" class="register-button">Register</button>
+            </div>
+        </form>
+    </div>
+{% endblock main %}

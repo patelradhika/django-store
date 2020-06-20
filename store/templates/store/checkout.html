@@ -1,0 +1,39 @@
+{% extends 'store/base.html' %}
+
+{% block main %}
+    <form class="checkout-container" action="" method="POST">
+        <div class="address-form-container">
+            <div class="checkout-title">Shipping Address</div>
+                {% csrf_token %}
+                <input type="text" class="checkout-name" name="checkout-first-name" placeholder="First Name" required>
+                <input type="text" class="checkout-name" name="checkout-last-name" placeholder="Last Name" required>
+                <input type="text" class="checkout-address-line" name="checkout-address-line-1" placeholder="Address Line 1" required>
+                <input type="text" class="checkout-address-line" name="checkout-address-line-2" placeholder="Address Line 2">
+                <input type="text" class="checkout-misc" name="checkout-city" placeholder="City" required>
+                <input type="text" class="checkout-misc" name="checkout-state" placeholder="State" required>
+                <input type="text" class="checkout-misc" name="checkout-zipcode" placeholder="Zipcode" required>
+                <input type="text" class="checkout-misc" name="checkout-phone" placeholder="Phone Number">
+        </div>
+        <div class="order-summary-container">
+            <div class="checkout-title">
+                Order Summary
+            </div>
+            <div class="order-summary-item">
+                <div class="summary-item-photo" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
+                <div class="summary-item-details">
+                    <div class="summary-item-quantity">1</div>
+                    <div>&#8377;2500</div>
+                </div>
+            </div>
+            <div class="order-summary-item">
+                <div class="summary-item-photo" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
+                <div class="summary-item-details">
+                    <div class="summary-item-quantity">1</div>
+                    <div>&#8377;2500</div>
+                </div>
+            </div>
+            <div class="order-summary-total">Total: &#8377;5000</div>
+            <button type="submit" class="checkout-button">Proceed for Payment</button>
+        </div>
+    </form>
+{% endblock main %}

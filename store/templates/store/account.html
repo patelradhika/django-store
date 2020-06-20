@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+
+{% block main %}
+    <div class="account-conatiner">
+        <div class="account-picture" style="background-image: url(https://images.unsplash.com/photo-1592493397509-699726ab0f1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80);"></div>
+        <div class="account-username">
+            radzzpatel
+        </div>
+        <form action="" enctype="multipart/form-data">
+            <div class="account-form">
+                <div class="account-form-control">
+                    <label class="account-form-label" for="account-username">Update Username</label>
+                    <input type="text" class="account-form-input" name="account-username" placeholder="Username">
+                </div>
+                <div class="account-form-control">
+                    <label class="account-form-label" for="account-email">Update Email ID</label>
+                <input type="text" class="account-form-input" name="account-email" placeholder="Email ID">
+                </div>
+                <div class="account-form-control">
+                    <label class="account-form-label" for="account-password">Update Password</label>
+                <input type="text" class="account-form-input" name="account-password" placeholder="Password">
+                </div>
+                <div class="account-form-control">
+                    <label class="account-form-label" for="account-check-pwd"></label>
+                    <input type="text" class="account-form-input" name="account-check-pwd" placeholder="Re-enter Password">
+                </div>
+                <div class="account-form-control">
+                    <label class="account-form-label" for="account-profile-pic">Update Profile Picture</label>
+                    <input type="file" class="account-file-input" name="account-profile-pic" placeholder="">
+                </div>
+                <button type="submit" class="account-update-button">Update</button>
+            </div>
+        </form>
+        <form action="">
+            <div class="account-delete">
+                <label class="account-form-label" for="account-delete-button">Delete Account</label>
+                <button type="submit" class="account-delete-button">Delete</button>
+            </div>
+        </form>
+    </div>    
+{% endblock main %}

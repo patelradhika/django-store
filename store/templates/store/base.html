@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radz Store</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/store.css' %}">
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-option">
+            <a href="{% url 'store' %}">Store</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'cart' %}">Cart</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'myorders' %}">My Orders</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'account' %}">Account</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'logout' %}">Log Out</a>
+        </div>
+    </div>
+    <div class="main">
+        {% block main %}
+        {% endblock main %}  
+    </div>
+    <div class="footer">
+        <div class="footer-text">&copy; 2020, Radhika Patel</div>
+    </div>
+</body>
+</html>
