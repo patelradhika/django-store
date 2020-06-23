@@ -1,14 +1,24 @@
 {% extends 'store/base.html' %}
 
+{% load crispy_forms_field %}
+
 {% block main %}
     <div class="login-container">
         <div class="login-title">
             Login
         </div>
-        <form action="">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
             <div class="login-form">
-                <input type="text" class="login-name" name="login-name" placeholder="Username" required>
-                <input type="password" class="login-password" name="login-password" placeholder="Password" required>
+                {% crispy_field form.username 'class' 'login-name' 'placeholder' 'Username' %}
+                {% for error in form.errors.username %}
+                <div class="form-error">{{error}}</div>
+                {% endfor %}
+
+                {% crispy_field form.password 'class' 'login-password' 'placeholder' 'Password' %}
+                {% for error in form.errors.password %}
+                <div class="form-error">{{error}}</div>
+                {% endfor %}
                 <button type="submit" class="login-button">Login</button>
             </div>
         </form>

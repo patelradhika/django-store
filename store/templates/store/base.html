@@ -18,12 +18,8 @@
         <div class="nav-option">
             <a href="{% url 'cart' %}">Cart</a>
         </div>
-        <div class="nav-option">
-            <a href="{% url 'login' %}">Login</a>
-        </div>
-        <div class="nav-option">
-            <a href="{% url 'register' %}">Register</a>
-        </div>
+        
+        {% if user.is_authenticated %}
         <div class="nav-option">
             <a href="{% url 'myorders' %}">My Orders</a>
         </div>
@@ -33,6 +29,15 @@
         <div class="nav-option">
             <a href="{% url 'logout' %}">Log Out</a>
         </div>
+        {% else %}    
+        <div class="nav-option">
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+        <div class="nav-option">
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+        {% endif %}
+        
     </div>
     <div class="main">
         {% block main %}

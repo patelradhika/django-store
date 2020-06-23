@@ -1,18 +1,33 @@
 {% extends 'store/base.html' %}
 
+{% load crispy_forms_field %}
+
 {% block main %}
-    <div class="register-container">
-        <div class="register-title">
-            Register
-        </div>
-        <form action="">
-            <div class="register-form">
-                <input type="text" class="register-name" name="register-name" placeholder="Username" required>
-                <input type="email" class="register-email" name="register-email" placeholder="Email ID" required>
-                <input type="password" class="register-password" name="register-password" placeholder="Password" required>
-                <input type="password" class="register-password" name="register-check-pwd" placeholder="Re-enter Password" required>
-                <button type="submit" class="register-button">Register</button>
-            </div>
-        </form>
+<div class="register-container">
+    <div class="register-title">
+        Register
     </div>
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="register-form">
+            {% crispy_field form.username 'class' 'register-name' 'placeholder' 'Username' %}
+            {% for error in form.errors.username %}
+            <div class="register-error">{{error}}</div>
+            {% endfor %}
+
+            {% crispy_field form.email 'class' 'register-email' 'placeholder' 'Email ID' %}
+            {% for error in form.errors.email %}
+            <div class="register-error">{{error}}</div>
+            {% endfor %}
+
+            {% crispy_field form.password 'class' 'register-password' 'placeholder' 'Password' %}
+            {% for error in form.errors.password %}
+            <div class="register-error">{{error}}</div>
+            {% endfor %}
+
+            {% crispy_field form.checkpwd 'class' 'register-password' 'placeholder' 'Re-enter Password' %}
+            <button type="submit" class="register-button">Register</button>
+        </div>
+    </form>
+</div>
 {% endblock main %}

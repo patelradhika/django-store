@@ -351,7 +351,14 @@ input:focus {
     font-size: large;
 }
 
+.account-username {
+    color: #3F4549;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
 .account-picture {
+    margin-top: 20px;
     width: 200px;
     height: 200px;
     border: 1px solid #cdd3d6;
@@ -361,9 +368,8 @@ input:focus {
     background-repeat: no-repeat;
 }
 
-.account-username {
+.account-email {
     color: #3F4549;
-    font-size: x-large;
     margin-top: 12px;
 }
 
@@ -488,4 +494,18 @@ input:focus {
 
 .order-item span {
     margin-left: 20em;
+}
+
+.register-error {
+    width: 100%;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+
+.account-error {
+    color: red;
+    font-size: 0.8rem;
+    margin-left: 250px;
+    margin-top: 8px;
 }

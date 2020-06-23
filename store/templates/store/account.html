@@ -1,32 +1,54 @@
 {% extends 'store/base.html' %}
 
+{% load crispy_forms_field %}
+
 {% block main %}
     <div class="account-conatiner">
-        <div class="account-picture" style="background-image: url(https://images.unsplash.com/photo-1592493397509-699726ab0f1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80);"></div>
         <div class="account-username">
-            radzzpatel
+            Welcome {{user.username}}
         </div>
-        <form action="" enctype="multipart/form-data">
+        <img class="account-picture" src="{{user.userimage.profile_pic.url}}">
+        <div class="account-email">
+            {{user.email}}
+        </div>
+        <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="account-form">
                 <div class="account-form-control">
-                    <label class="account-form-label" for="account-username">Update Username</label>
-                    <input type="text" class="account-form-input" name="account-username" placeholder="Username">
+                    <label class="account-form-label" for="username">Update Username</label>
+                    {% crispy_field form.username 'class' 'account-form-input' 'placeholder' 'Username' %}
                 </div>
+                {% for error in form.errors.username %}
+                    <div class="account-error">{{error}}</div>
+                {% endfor %}
+                
                 <div class="account-form-control">
-                    <label class="account-form-label" for="account-email">Update Email ID</label>
-                <input type="text" class="account-form-input" name="account-email" placeholder="Email ID">
+                    <label class="account-form-label" for="email">Update Email ID</label>
+                    {% crispy_field form.email 'class' 'account-form-input' 'placeholder' 'Email ID' %}
                 </div>
+                {% for error in form.errors.email %}
+                    <div class="account-error">{{error}}</div>
+                {% endfor %}
+
                 <div class="account-form-control">
-                    <label class="account-form-label" for="account-password">Update Password</label>
-                <input type="text" class="account-form-input" name="account-password" placeholder="Password">
+                    <label class="account-form-label" for="password">Update Password</label>
+                    {% crispy_field form.password 'class' 'account-form-input' 'placeholder' 'Password' %}
                 </div>
+                {% for error in form.errors.password %}
+                    <div class="account-error">{{error}}</div>
+                {% endfor %}
+
                 <div class="account-form-control">
-                    <label class="account-form-label" for="account-check-pwd"></label>
-                    <input type="text" class="account-form-input" name="account-check-pwd" placeholder="Re-enter Password">
+                    <label class="account-form-label" for="checkpwd"></label>
+                    {% crispy_field form.checkpwd 'class' 'account-form-input' 'placeholder' 'Re-enter Password' %}
                 </div>
+                {% for error in form.errors.checkpwd %}
+                    <div class="account-error">{{error}}</div>
+                {% endfor %}
+
                 <div class="account-form-control">
-                    <label class="account-form-label" for="account-profile-pic">Update Profile Picture</label>
-                    <input type="file" class="account-file-input" name="account-profile-pic" placeholder="">
+                    <label class="account-form-label" for="profile_pic">Update Profile Picture</label>
+                    {% crispy_field form.profile_pic 'class' 'account-profile-pic' %}
                 </div>
                 <button type="submit" class="account-update-button">Update</button>
             </div>
