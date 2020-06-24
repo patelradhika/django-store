@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import UserImage
+from .models import Customer, ShippingAddress
 
 
 class RegisterForm(forms.ModelForm):
@@ -28,5 +28,11 @@ class AccountForm(forms.ModelForm):
     profile_pic = forms.ImageField(required=False)
 
     class Meta:
-        model = UserImage
+        model = Customer
         fields = ['profile_pic',]
+
+
+class ShippingForm(forms.ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = ['firstName', 'lastName', 'addressLine1', 'addressLine2', 'city', 'state', 'zipcode', 'phone']

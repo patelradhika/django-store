@@ -1,0 +1,19 @@
+{% extends 'store/base.html' %}
+
+{% block main %}
+<div class="product-image" style="background-image: url({{product.product_pic.url}});"></div>
+<div class="product-details">
+    <div class="product-name">
+        {{product.name}}
+    </div>
+    <div class="product-price">
+        <strong><em>Price: </em></strong>&#8377;{{product.price}}
+    </div>
+    <div class="product-desc">
+        <strong><em>Product Description: </em></strong>{{product.description}}
+    </div>
+    <button class="product-button"><a href="{% url 'updatecart' product.id 'add' %}">Add to Cart</a></button>
+    <button class="store-button"><a href="{% url 'store' %}">Go Back</a></button>
+</div>
+{% endblock main %}
+    

@@ -5,26 +5,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from PIL import Image
 
-from .forms import RegisterForm, LoginForm, AccountForm
-from .models import UserImage
+from .forms import RegisterForm, LoginForm, AccountForm, ShippingForm
+from .models import Customer, Products, Order, OrderItem, ShippingAddress
+from .utils import cartData
 
 # Create your views here.
 ALLOWED_SPECIAL_CHAR = ['_', '@', '$', '#']
 
 
-def store(request):
-    frontend = {}
-    return render(request, 'store/store.html', frontend)
-
-def cart(request):
-    frontend = {}
-    return render(request, 'store/cart.html', frontend)
-
-def checkout(request):
-    frontend = {}
-    return render(request, 'store/checkout.html', frontend)
-
 def register(request):
+    data = cartData(request)
+
     if request.method == "POST":
         form = RegisterForm(request.POST)
 
@@ -50,16 +41,19 @@ def register(request):
 
         else:
             new_user = User.objects.create_user(username, email, password)
-            UserImage.objects.create(user=new_user)
+            Customer.objects.create(user=new_user)
             return redirect('login')
 
     else:
         form = RegisterForm()
 
-    frontend = {'form': form}
+    frontend = {'form': form, 'cartItems': data['cartItems']}
     return render(request, 'store/register.html', frontend)
 
+
 def cust_login(request):
+    data = cartData(request)
+
     if request.method == "POST":
         form = LoginForm(request.POST)
 
@@ -88,16 +82,23 @@ def cust_login(request):
     else:
         form = LoginForm()
 
-    frontend = {'form': form}
+    frontend = {'form': form, 'cartItems': data['cartItems']}
     return render(request, 'store/login.html', frontend)
+
 
 @login_required
 def myorders(request):
-    frontend = {}
+    data = cartData(request)
+    orders = Order.objects.filter(customer=request.user.customer, complete=True)
+
+    frontend = {'cartItems': data['cartItems'], 'orders': orders}
     return render(request, 'store/myorders.html', frontend)
+
 
 @login_required
 def account(request):
+    data = cartData(request)
+
     if request.method == 'POST':
         form = AccountForm(request.POST, request.FILES)
 
@@ -162,7 +163,7 @@ def account(request):
                         return redirect('login')
 
             if pic:
-                user = UserImage.objects.get(user=request.user)
+                user = Customer.objects.get(user=request.user)
                 user.profile_pic = pic
                 user.save(update_fields=['profile_pic'])
 
@@ -176,10 +177,102 @@ def account(request):
     else:
         form = AccountForm()
 
-    frontend = {'form': form}
+    frontend = {'form': form, 'cartItems': data['cartItems']}
     return render(request, 'store/account.html', frontend)
+
 
 @login_required
 def cust_logout(request):
     logout(request)
     return redirect('store')
+
+
+def store(request):
+    data = cartData(request)
+    products = Products.objects.all()
+
+    frontend = {'products': products, 'cartItems': data['cartItems']}
+    return render(request, 'store/store.html', frontend)
+
+
+def product(request, prodName):
+    data = cartData(request)
+    product = Products.objects.get(name=prodName)
+
+    frontend = {'product': product, 'cartItems': data['cartItems']}
+    return render(request, 'store/product.html', frontend)
+
+
+def updateCart(request, prodId, action):
+    product = Products.objects.get(id=prodId)
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+
+    else:
+        device = request.COOKIES.get('deviceID')
+        customer, created = Customer.objects.get_or_create(device=device)
+
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+    if (action == 'add'):
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif (action == 'remove'):
+        orderItem.quantity = (orderItem.quantity - 1)
+
+    orderItem.save()
+    
+    if (orderItem.quantity <= 0):
+        orderItem.delete()
+        if (not order.get_items):
+            order.delete()
+
+    return redirect('store')
+
+
+def cart(request):
+    frontend = cartData(request)
+    return render(request, 'store/cart.html', frontend)
+
+
+def checkout(request):
+    frontend = cartData(request)
+    shipping = ShippingAddress.objects.get(customer=frontend['order'].customer)
+
+    if shipping:
+        frontend['form'] = ShippingForm(instance=shipping)
+    else:
+        frontend['form'] = ShippingForm()
+
+    return render(request, 'store/checkout.html', frontend)
+
+
+def deleteitem(request, itemId):
+    item = OrderItem.objects.get(id=itemId)
+    order = Order.objects.get(id=item.order.id)
+
+    item.delete()
+
+    if (not order.get_items):
+        order.delete()
+
+    return redirect('cart')
+
+
+@login_required
+def deleteaccount(request):
+    if request.method == "POST":
+        orders = Order.objects.filter(customer=request.user.customer, complete=False)
+        for order in orders:
+            items = order.get_items
+            for item in items:
+                item.delete()
+                
+            order.delete()
+
+        user = request.user
+        logout(request)
+
+        user.delete()
+        return redirect('store')

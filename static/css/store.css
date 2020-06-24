@@ -8,8 +8,8 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 60px;
-    position: absolute;
+    height: 50px;
+    position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
@@ -19,57 +19,76 @@ body {
     margin-right: 30px;
     padding: 16px;
     font-size: large;
+    display: flex;
 }
 
-.nav-option a {
+.nav-cart-count {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eaecee;
+}
+
+.nav-option a, .item-button a, .cart-button a, .store-button a,
+.product-button a {
     color: #eaecee;
     text-decoration: none;
 }
 
 .footer {
-    height: 60px;
+    background-color: royalblue;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     left: 0px;
     right: 0px;
 }
 
 .footer-text {
-    color: #3F4549;
+    color: #eaecee;
     padding: 4px;
     font-size: large;
 }
 
 .main {
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: 0px;
     right: 0px;
-    bottom: 80px;
+    bottom: 50px;
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    margin-bottom: 30px;
 }
 
 .item {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: 30px;
+    margin-bottom: 20px;
     width: 320px;
     height: 320px;
     border: 1px solid #cdd3d6;
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.25s ease-in-out;
-    cursor: pointer;
 }
 
 .item:hover {
     transform: translate3d(0px, -5px, 0px);
     box-shadow: 0 2rem 5rem 0 rgba(0,0,0,.1);
+}
+
+.item a {
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .item-image {
@@ -79,7 +98,7 @@ body {
     height: 200px;
 }
 
-.item-description {
+.item-name {
     padding: 12px;
     text-align: center;
     font-size: x-large;
@@ -95,7 +114,7 @@ body {
 }
 
 .item-price {
-    flex-grow: 1;
+    width: 180px;
     color: #3F4549;
 }
 
@@ -103,11 +122,8 @@ body {
     background-color: royalblue;
     padding: 12px;
     border-radius: 8px;
-}
-
-.item-button a {
-    color: #eaecee;
-    text-decoration: none;
+    border: none;
+    cursor: pointer;
 }
 
 .cart-container {
@@ -149,11 +165,7 @@ body {
 
 .cart-button {
     margin-right: 50px;
-}
-
-.cart-button a {
-    color: #eaecee;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 .individual-cart-item {
@@ -268,6 +280,7 @@ input:focus {
     padding: 12px;
     background-color: royalblue;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .order-summary-item {
@@ -349,6 +362,7 @@ input:focus {
     color: #eaecee;
     padding: 12px 20px;
     font-size: large;
+    cursor: pointer;
 }
 
 .account-username {
@@ -496,7 +510,7 @@ input:focus {
     margin-left: 20em;
 }
 
-.register-error {
+.register-error, .login-error {
     width: 100%;
     color: red;
     font-size: 0.8rem;
@@ -508,4 +522,76 @@ input:focus {
     font-size: 0.8rem;
     margin-left: 250px;
     margin-top: 8px;
+}
+
+.product-image {
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    border-radius: 8px;
+}
+
+.product-details {
+    margin-left: 50px;
+    margin-top: 30px;
+    color: #3F4549;
+    width: 800px;
+}
+
+.product-name {
+    font-size: 3em;
+    font-weight: bolder;
+}
+
+.product-price {
+    margin-top: 20px;
+    font-size: large;
+}
+
+.product-desc {
+    margin-top: 20px;
+}
+
+.product-button {
+    margin-top: 20px;
+    background-color: royalblue;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.store-button {
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: #3F4549;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.login-register {
+    margin-top: 20px;
+    color: #3F4549;
+}
+
+.login-register a {
+    text-decoration: none;
+    color: royalblue;
+}
+
+.no-cart-data, .no-orders-message {
+    color: #3F4549;
+    margin-top: 100px;
+    font-size: large;
+}
+
+.no-cart-data a, .no-orders-message a {
+    color: royalblue;
+    text-decoration: none;
 }

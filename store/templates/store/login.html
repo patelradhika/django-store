@@ -12,15 +12,19 @@
             <div class="login-form">
                 {% crispy_field form.username 'class' 'login-name' 'placeholder' 'Username' %}
                 {% for error in form.errors.username %}
-                <div class="form-error">{{error}}</div>
+                <div class="login-error">{{error}}</div>
                 {% endfor %}
 
                 {% crispy_field form.password 'class' 'login-password' 'placeholder' 'Password' %}
                 {% for error in form.errors.password %}
-                <div class="form-error">{{error}}</div>
+                <div class="login-error">{{error}}</div>
                 {% endfor %}
                 <button type="submit" class="login-button">Login</button>
             </div>
         </form>
+        <div class="login-register">
+            Don't have an account yet?
+            <a href="{% url 'register' %}">Register here</a>
+        </div>
     </div>
 {% endblock main %}

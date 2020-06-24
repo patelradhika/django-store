@@ -1,79 +1,22 @@
 {% extends 'store/base.html' %}
 
 {% block main %}
-    <div class="item">
-        <div class="item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);">
-        </div>
-        <div class="item-description">
-            Shoes
-        </div>
-        <div class="item-option">
-            <div class="item-price">
-                Price: &#8377;2500
-            </div>
-            <div class="item-button">
-                <a href="">Add to Cart</a>
-            </div>
-        </div>
+{% for product in products %}
+<div class="item">
+    <a href="{% url 'product' product.name %}">
+        <div class="item-image" style="background-image: url({{product.product_pic.url}});"></div>
+    </a>
+    <div class="item-name">
+        {{product.name}}
     </div>
-    <div class="item">
-        <div class="item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);">
+    <div class="item-option">
+        <div class="item-price">
+            Price: &#8377;{{product.price}}
         </div>
-        <div class="item-description">
-            Shoes
-        </div>
-        <div class="item-option">
-            <div class="item-price">
-                Price: &#8377;2500
-            </div>
-            <div class="item-button">
-                <a href="">Add to Cart</a>
-            </div>
-        </div>
+        <button class="item-button">
+            <a href="{% url 'updatecart' product.id 'add' %}">Add to Cart</a>
+        </button>
     </div>
-    <div class="item">
-        <div class="item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);">
-        </div>
-        <div class="item-description">
-            Shoes
-        </div>
-        <div class="item-option">
-            <div class="item-price">
-                Price: &#8377;2500
-            </div>
-            <div class="item-button">
-                <a href="">Add to Cart</a>
-            </div>
-        </div>
-    </div>
-    <div class="item">
-        <div class="item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);">
-        </div>
-        <div class="item-description">
-            Shoes
-        </div>
-        <div class="item-option">
-            <div class="item-price">
-                Price: &#8377;2500
-            </div>
-            <div class="item-button">
-                <a href="">Add to Cart</a>
-            </div>
-        </div>
-    </div>
-    <div class="item">
-        <div class="item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);">
-        </div>
-        <div class="item-description">
-            Shoes
-        </div>
-        <div class="item-option">
-            <div class="item-price">
-                Price: &#8377;2500
-            </div>
-            <div class="item-button">
-                <a href="">Add to Cart</a>
-            </div>
-        </div>
-    </div>
+</div>
+{% endfor %}
 {% endblock main %}

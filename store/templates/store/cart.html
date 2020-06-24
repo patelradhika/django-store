@@ -2,6 +2,8 @@
 
 {% block main %}
     <div class="cart-container">
+        
+        {% if items %}
         <div class="cart">
             <div class="cart-title">
                 Cart Items
@@ -10,41 +12,39 @@
                 <div class="cart-total-display">
                     <div class="cart-item-count">
                         Total items: 
-                        <span id="total-item">2</span>
+                        <span>{{cartItems}}</span>
                     </div>
                     <div class="cart-amount">
                         Total amount: &#8377;
-                        <span id="total-price">5000</span>
+                        <span>{{order.get_cart_total}}</span>
                     </div>
                 </div>
                 <div class="cart-button">
                     <a href="{% url 'checkout' %}">Checkout</a>
                 </div>
             </div>
+            
+            {% for item in items %}
             <div class="individual-cart-item">
-                <div class="cart-item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
-                <div class="cart-item-name">Shoes</div>
-                <div class="cart-item-price">&#8377;2500</div>
+                <div class="cart-item-image" style="background-image: url({{item.product.product_pic.url}});"></div>
+                <span>{{item.product.name}}</span>
+                <span>&#8377;{{item.get_total}}</span>
                 <div class="cart-item-quantity">
-                    <span id="item-quantity">1</span>
-                    <i class="fas fa-plus"></i>
-                    <i class="fas fa-minus"></i>
+                    <span id="item-quantity">{{item.quantity}}</span>
+                    <a href="{% url 'updatecart' item.product.id 'add' %}"><i class="fas fa-plus"></i></a>
+                    <a href="{% url 'updatecart' item.product.id 'remove' %}"><i class="fas fa-minus"></i></a>
                 </div>
-                <i class="fas fa-trash"></i>
+                <a href="{% url 'deleteitem' item.id %}"><i class="fas fa-trash"></i></a>
             </div>
-            <div class="individual-cart-item">
-                <div class="cart-item-image" style="background-image: url(https://static.nike.com/a/images/t_PDP_1280_v1/f_auto/iwd89gihe69ltw2ky87m/air-jordan-1-jester-xx-low-laced-shoe-05j7vX.jpg);"></div>
-                <div class="cart-item-name">Shoes</div>
-                <div class="cart-item-price">&#8377;2500</div>
-                <div class="cart-item-quantity">
-                    <span id="item-quantity">1</span>
-                    <div>
-                        <i class="fas fa-plus"></i>
-                        <i class="fas fa-minus"></i>
-                    </div>
-                </div>
-                <i class="fas fa-trash"></i>
-            </div>
+            {% endfor %}
+                
         </div>
+        {% else %}
+        <div class="no-cart-data">
+            No items in the cart yet.
+            <a href="{% url 'store' %}">Start shopping</a>
+        </div>
+        {% endif %}
+            
     </div>
 {% endblock main %}

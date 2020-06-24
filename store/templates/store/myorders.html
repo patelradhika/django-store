@@ -2,42 +2,36 @@
 
 {% block main %}
     <div class="orders-container">
+        
+        {% if orders %}
         <div class="orders-title">
-            My Orders
+            Previous Orders
         </div>
+        
+        {% for order in orders %}
         <div class="individual-order-container">
             <div class="order-details">
-                <span id="order-date">Order Number: 1</span>
-                <span id="order-date">Order Date: Jun 20, 2020</span>
-                <span id="order-status">Status: Delivered</span>
+                <span>Order Number: {{order.id}}</span>
+                <span>Order Date: {{order.dateAdded}}</span>
             </div>
+            
+            {% for item in order.get_items %}
             <div class="order-item">
-                <div class="order-item-image" style="background-image: url(https://images.unsplash.com/photo-1556048219-bb6978360b84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80);"></div>
-                <span id="order-item-quantity">1</span>
-                <span id="order-item-price">&#8377;2500</span>
+                <div class="order-item-image" style="background-image: url({{item.product.product_pic.url}});"></div>
+                <span>{{item.quantity}}</span>
+                <span>&#8377;{{item.get_total}}</span>
             </div>
-            <div class="order-item">
-                <div class="order-item-image" style="background-image: url(https://images.unsplash.com/photo-1556048219-bb6978360b84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80);"></div>
-                <span id="order-item-quantity">1</span>
-                <span id="order-item-price">&#8377;2500</span>
-            </div>
+            {% endfor %}
+
         </div>
-        <div class="individual-order-container">
-            <div class="order-details">
-                <span id="order-date">Order Number: 2</span>
-                <span id="order-date">Order Date: Jun 21, 2020</span>
-                <span id="order-status">Status: Pending</span>
-            </div>
-            <div class="order-item">
-                <div class="order-item-image" style="background-image: url(https://images.unsplash.com/photo-1556048219-bb6978360b84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80);"></div>
-                <span id="order-item-quantity">1</span>
-                <span id="order-item-price">&#8377;2500</span>
-            </div>
-            <div class="order-item">
-                <div class="order-item-image" style="background-image: url(https://images.unsplash.com/photo-1556048219-bb6978360b84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80);"></div>
-                <span id="order-item-quantity">1</span>
-                <span id="order-item-price">&#8377;2500</span>
-            </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="no-orders-message">
+            There are no previous/completed orders for this account.
+            <a href="{% url 'store' %}">Start shopping</a>
         </div>
+        {% endif %}
+            
     </div>    
 {% endblock main %}

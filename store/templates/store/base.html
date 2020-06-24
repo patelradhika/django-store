@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/store.css' %}">
+
+    <script src="{% static 'js/store.js' %}"></script>
 </head>
 <body>
     <div class="nav">
@@ -17,6 +19,13 @@
         </div>
         <div class="nav-option">
             <a href="{% url 'cart' %}">Cart</a>
+            
+            {% if cartItems %}
+            <div class="nav-cart-count">
+                {{cartItems}}
+            </div>
+            {% endif %}
+                
         </div>
         
         {% if user.is_authenticated %}
@@ -33,11 +42,7 @@
         <div class="nav-option">
             <a href="{% url 'login' %}">Login</a>
         </div>
-        <div class="nav-option">
-            <a href="{% url 'register' %}">Register</a>
-        </div>
         {% endif %}
-        
     </div>
     <div class="main">
         {% block main %}
