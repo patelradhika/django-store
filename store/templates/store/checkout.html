@@ -1,9 +1,10 @@
 {% extends 'store/base.html' %}
 
+{% load static %}
 {% load crispy_forms_field %}
 
 {% block main %}
-    <form class="checkout-container" action="" method="POST">
+    <form class="checkout-container" method="POST">
         <div class="address-form-container">
             <div class="checkout-title">Shipping Address</div>
                 {% csrf_token %}
@@ -26,13 +27,25 @@
                 <div class="summary-item-photo" style="background-image: url({{item.product.product_pic.url}});"></div>
                 <div class="summary-item-details">
                     <div class="summary-item-quantity">{{item.quantity}}</div>
-                    <div>&#8377;{{item.get_total}}</div>
+                    <div>&#36;{{item.get_total}}</div>
                 </div>
             </div>
             {% endfor %}
                 
-            <div class="order-summary-total">Total: &#8377;{{order.get_cart_total}}</div>
-            <button type="submit" class="checkout-button">Proceed for Payment</button>
+            <div class="order-summary-total">Total: &#36;
+                <span id="order-total">{{order.get_cart_total}}</span>
+            </div>
+            <button type="button" class="checkout-button" onclick="showPayment()">Proceed for Payment</button>
+            <button type="submit" id="payment-done" formaction="{% url 'checkout' %}">Process Order</button>
         </div>
     </form>
+
+    <div class="paypal-container">
+        <div id="paypal-button-container"></div>
+    </div>
+
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=ARk7Yn6mprAlCuSUL8s54MM29ob5sn62Hr56SaV3p_3n_VjL8zrUdLR685ykFX-TQLnCWbcCjIzudnhT&currency=USD">
+    </script>
+    <script src="{% static 'js/payment.js' %}"></script>
 {% endblock main %}

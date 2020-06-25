@@ -1,0 +1,15 @@
+{% extends 'store/base.html' %}
+
+
+{% block main %}
+    <div class="resetdone-container">
+        <h3>Password reset complete</h3>
+        <div>
+            Your password has been set. You may go ahead and log in now.
+        </div>
+        <div class="resetdone-link">
+            <a href="{% url 'login' %}">Log In</a>
+        </div>
+    </div>
+{% endblock main %}
+    

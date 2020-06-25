@@ -7,7 +7,7 @@ from PIL import Image
 
 from .forms import RegisterForm, LoginForm, AccountForm, ShippingForm
 from .models import Customer, Products, Order, OrderItem, ShippingAddress
-from .utils import cartData
+from .utils import cartData, random_generator
 
 # Create your views here.
 ALLOWED_SPECIAL_CHAR = ['_', '@', '$', '#']
@@ -237,15 +237,37 @@ def cart(request):
 
 
 def checkout(request):
-    frontend = cartData(request)
-    shipping = ShippingAddress.objects.get(customer=frontend['order'].customer)
+    data = cartData(request)
 
-    if shipping:
-        frontend['form'] = ShippingForm(instance=shipping)
+    if request.method == "POST":
+        customer = data['order'].customer
+        order = data['order']
+
+        form = ShippingForm(request.POST)
+        shipping = form.save(commit=False)
+        shipping.customer = customer
+        shipping.order = order
+        shipping.save()
+
+        order.complete = True
+        order.transaction_id = random_generator()
+        order.save()
+
+        if request.user.is_authenticated:
+            return redirect('myorders')
+        else:
+            return redirect('store')
+
     else:
-        frontend['form'] = ShippingForm()
+        shipping = ShippingAddress.objects.filter(customer=data['order'].customer).first()
 
-    return render(request, 'store/checkout.html', frontend)
+        frontend = data
+        if shipping:
+            frontend['form'] = ShippingForm(instance=shipping)
+        else:
+            frontend['form'] = ShippingForm()
+
+        return render(request, 'store/checkout.html', frontend)
 
 
 def deleteitem(request, itemId):

@@ -15,7 +15,7 @@
                         <span>{{cartItems}}</span>
                     </div>
                     <div class="cart-amount">
-                        Total amount: &#8377;
+                        Total amount: &#36;
                         <span>{{order.get_cart_total}}</span>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <div class="individual-cart-item">
                 <div class="cart-item-image" style="background-image: url({{item.product.product_pic.url}});"></div>
                 <span>{{item.product.name}}</span>
-                <span>&#8377;{{item.get_total}}</span>
+                <span>&#36;{{item.get_total}}</span>
                 <div class="cart-item-quantity">
                     <span id="item-quantity">{{item.quantity}}</span>
                     <a href="{% url 'updatecart' item.product.id 'add' %}"><i class="fas fa-plus"></i></a>

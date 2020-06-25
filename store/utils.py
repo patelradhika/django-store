@@ -1,4 +1,11 @@
+import random
+import string
+
 from .models import Customer, Order, OrderItem
+
+
+def random_generator(size=16, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 def cartData(request):
